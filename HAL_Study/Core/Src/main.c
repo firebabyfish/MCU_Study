@@ -23,7 +23,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "mydrivers.h"
 
 /* USER CODE END Includes */
 
@@ -87,7 +86,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
-  /* USER CODE BEGIN 2 */   
+  /* USER CODE BEGIN 2 */
   printf("%s\r\n", "uart printf");
   /* USER CODE END 2 */
 
@@ -95,7 +94,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    Key_Action(KEY_RISING);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

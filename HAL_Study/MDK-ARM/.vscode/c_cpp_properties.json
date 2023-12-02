@@ -3,18 +3,18 @@
         {
             "name": "HAL_Study",
             "includePath": [
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\Core\\Inc",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\Drivers\\CMSIS\\Include",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\MyDrivers\\Inc",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\Core\\Inc",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\Drivers\\CMSIS\\Include",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\MyDrivers\\Inc",
                 "D:\\EXE\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\EXE\\Keil_v5\\ARM\\ARMCC\\include\\rw",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\MDK-ARM",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\Core\\Src",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\Drivers\\STM32F1xx_HAL_Driver\\Src",
-                "c:\\Users\\lhywj\\Desktop\\Project\\HAL_Study\\MyDrivers\\Src"
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\MDK-ARM",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\Core\\Src",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\Drivers\\STM32F1xx_HAL_Driver\\Src",
+                "c:\\Users\\lhywj\\Desktop\\HAL_Project\\HAL_Study\\MyDrivers\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
