@@ -6,6 +6,7 @@
 #include "key_driver.h"
 #include "exti_driver.h"
 #include "uart_driver.h"
+#include "tim_driver.h"
 
 #include <stdio.h>
 

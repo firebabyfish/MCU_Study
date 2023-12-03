@@ -1739,6 +1739,11 @@
               <FileType>5</FileType>
               <FilePath>..\MyDrivers\Inc\mydrivers.h</FilePath>
             </File>
+            <File>
+              <FileName>tim_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\MyDrivers\Inc\tim_driver.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1773,6 +1778,11 @@
               <FileName>mydrivers.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\MyDrivers\Src\mydrivers.c</FilePath>
+            </File>
+            <File>
+              <FileName>tim_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MyDrivers\Src\tim_driver.c</FilePath>
             </File>
           </Files>
         </Group>

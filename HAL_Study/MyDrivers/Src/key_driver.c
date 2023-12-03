@@ -4,7 +4,7 @@
 ** mode: 
 */
 
-uint8_t KEY_Scan(uint8_t Key_Mode)
+uint8_t Key_Scan(uint8_t Key_Mode)
 {
   static uint8_t Key_Flag = 0;
   uint8_t key_ret;
@@ -43,7 +43,7 @@ uint8_t Key_Value(void)
 
 void Key_Action(uint8_t KeyMode)
 {
-	switch (KEY_Scan(KeyMode))
+	switch (Key_Scan(KeyMode))
   {
   case KEY_1_FLAG:
     test1();

@@ -5,6 +5,10 @@
     "exti_driver.h": "c",
     "buzzer_driver.h": "c",
     "key_driver.h": "c",
-    "uart_driver.h": "c"
+    "uart_driver.h": "c",
+    "usart.h": "c",
+    "limits": "cpp",
+    "memory": "cpp",
+    "tim_driver.h": "c"
   }
 }

@@ -12,7 +12,7 @@
 #define  KEY_2_FLAG      2
 
 uint8_t Key_Value(void);
-uint8_t KEY_Scan(uint8_t KEY_MODE);
+uint8_t Key_Scan(uint8_t KEY_MODE);
 void Key_Action(uint8_t KeyMode);
 
 #endif

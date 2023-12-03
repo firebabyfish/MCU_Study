@@ -15,4 +15,7 @@
 #define user_main_error(format, ...)
 #endif
 
+void UART_Transmit_IT_Test(void);
+void UART_Receive_IT_Test(void);
+
 #endif
