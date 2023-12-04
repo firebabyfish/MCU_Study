@@ -7,6 +7,7 @@
 #include "exti_driver.h"
 #include "uart_driver.h"
 #include "tim_driver.h"
+#include "pwm_driver.h"
 
 #include <stdio.h>
 
