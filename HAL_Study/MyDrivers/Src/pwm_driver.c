@@ -5,7 +5,7 @@ uint8_t flag = 0;
 
 void PWM_Set_Compare(uint32_t compare)
 {
-  PWM_TIM->CCR3 = compare;
+  PWM_CCR = compare;
 }
 
 void PWM_Test(void)

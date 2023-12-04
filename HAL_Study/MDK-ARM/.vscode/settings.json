@@ -9,6 +9,7 @@
     "usart.h": "c",
     "limits": "cpp",
     "memory": "cpp",
-    "tim_driver.h": "c"
+    "tim_driver.h": "c",
+    "iwdg.h": "c"
   }
 }

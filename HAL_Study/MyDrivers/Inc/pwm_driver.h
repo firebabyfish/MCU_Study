@@ -3,7 +3,7 @@
 
 #include <main.h>
 
-#define PWM_TIM       TIM2
+#define PWM_CCR       TIM2->CCR3
 
 void PWM_Set_Compare(uint32_t compare);
 void PWM_Test(void);

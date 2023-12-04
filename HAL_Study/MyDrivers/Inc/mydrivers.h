@@ -8,6 +8,7 @@
 #include "uart_driver.h"
 #include "tim_driver.h"
 #include "pwm_driver.h"
+#include "iwdg_driver.h"
 
 #include <stdio.h>
 

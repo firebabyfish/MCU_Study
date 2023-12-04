@@ -2,7 +2,7 @@
 
 void test1(void)
 {
-  LED_1_Toggle();
+  IWDG_Test();
 }
 
 void test2(void)
