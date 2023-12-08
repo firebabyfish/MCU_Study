@@ -10,6 +10,8 @@
     "limits": "cpp",
     "memory": "cpp",
     "tim_driver.h": "c",
-    "iwdg.h": "c"
+    "iwdg.h": "c",
+    "wwdg_driver.h": "c",
+    "stm32f1xx_hal.h": "c"
   }
 }

@@ -3,6 +3,4 @@
 
 #include "main.h"
 
-void Key_EXTI(void);
-
 #endif

@@ -9,6 +9,9 @@
 #include "tim_driver.h"
 #include "pwm_driver.h"
 #include "iwdg_driver.h"
+#include "wwdg_driver.h"
+#include "adc_driver.h"
+#include "dma_driver.h"
 
 #include <stdio.h>
 
