@@ -20,6 +20,7 @@
 #include "main.h"
 #include "adc.h"
 #include "dma.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -41,7 +42,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+volatile uint32_t Flash_ID = 0;
+volatile uint32_t Device_ID = 0;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -92,17 +94,15 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM6_Init();
   MX_ADC1_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  ADC_Init(&hadc1);
-  printf("test\r\n");
-
+  printf("Flash_ID = %x, Device_ID = %x\r\n", W25Q64_ReadID(), W25Q64_ReadDeviceID());
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    DMA_ADC_Test();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
