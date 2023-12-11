@@ -3,10 +3,12 @@
 
 #include "spi_drtiver.h"
 
+#define W25Q64_ID                                 0XEF4017
+#define W25Q64_ADRESS                             0X00000
+
 #define W25Q64_WRITE_ENABLE							          0x06
 #define W25Q64_WRITE_DISABLE						          0x04
-#define W25Q64_READ_STATUS_REGISTER_1				      0x05
-#define W25Q64_READ_STATUS_REGISTER_2				      0x35
+#define W25Q64_READ_STATUS_REGISTER				        0x05
 #define W25Q64_WRITE_STATUS_REGISTER				      0x01
 #define W25Q64_PAGE_PROGRAM							          0x02
 #define W25Q64_QUAD_PAGE_PROGRAM			      		  0x32
@@ -33,6 +35,8 @@
 #define W25Q64_DUMMY_BYTE							            0xFF
 #define W25Q64_BUSY_FLAG                          0x01
 
+#define W25Q64_MAX_PAGESIZE                       256
+
 #define W25Q64_SPI          hspi1
 
 #define W25Q64_NSS_LOW()          SPI1_NSS_LOW()
@@ -44,6 +48,9 @@ void W25Q64_WaitEnd(void);
 uint32_t W25Q64_ReadDeviceID(void);
 uint32_t W25Q64_ReadID(void);
 void W25Q64_SectorErase(uint32_t SectorAddr);
-void W25Q64_ReadBuffer(uint8_t *pBuffer, uint32_t ReadAdder, uint32_t ByteNumber);
+void W25Q64_PageWrite(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t ByteNumber);
+void W25Q64_BufferRead(uint8_t *pBuffer, uint32_t ReadAdder, uint32_t ByteNumber);
+
+void W25Q64_Start_Test(void);
 
 #endif

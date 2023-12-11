@@ -42,8 +42,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-volatile uint32_t Flash_ID = 0;
-volatile uint32_t Device_ID = 0;
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -60,6 +59,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
 /* USER CODE END 0 */
 
 /**
@@ -96,7 +96,8 @@ int main(void)
   MX_ADC1_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  printf("Flash_ID = %x, Device_ID = %x\r\n", W25Q64_ReadID(), W25Q64_ReadDeviceID());
+  W25Q64_Start_Test();
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */

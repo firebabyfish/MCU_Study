@@ -1,5 +1,11 @@
 #include "w25q64_driver.h"
 
+volatile uint32_t Flash_ID = 0;
+volatile uint32_t Device_ID = 0;
+
+uint8_t RD_Buffer[4096] = { 0 };
+uint8_t WR_Buffer[4096] = "Hello, this is a write test\r\n";
+
 uint8_t W25Q64_SendByte(uint8_t byte)
 {
   uint8_t TxData = byte;
@@ -18,9 +24,12 @@ void W25Q64_WriteEnable(void)
 /* 等待擦除或数据写完成 */
 void W25Q64_WaitEnd(void)
 {
+  uint8_t RD_Status = 0;
   W25Q64_NSS_LOW();
-  W25Q64_SendByte(W25Q64_READ_STATUS_REGISTER_1);
-  while ((W25Q64_SendByte(W25Q64_DUMMY_BYTE) & 0x01) == 0x01);
+  W25Q64_SendByte(W25Q64_READ_STATUS_REGISTER);
+  do {
+    RD_Status = W25Q64_SendByte(W25Q64_DUMMY_BYTE);
+  } while ((RD_Status & W25Q64_BUSY_FLAG) == SET);
   W25Q64_NSS_HIGH();
 }
 
@@ -52,29 +61,74 @@ uint32_t W25Q64_ReadID(void)
 
 void W25Q64_SectorErase(uint32_t SectorAddr)
 {
+  /* 必须开启写使能才能擦除 */
   W25Q64_WriteEnable();
+  W25Q64_WaitEnd();
 
+  /* 开始擦除扇区 */
   W25Q64_NSS_LOW();
   W25Q64_SendByte(W25Q64_SECTOR_ERASE_4KB);
-  W25Q64_SendByte(SectorAddr >> 16);
-  W25Q64_SendByte(SectorAddr >> 8);
-  W25Q64_SendByte(SectorAddr);
+  W25Q64_SendByte((SectorAddr & 0xFF0000) >> 16);
+  W25Q64_SendByte((SectorAddr & 0xFF00) >> 8);
+  W25Q64_SendByte(SectorAddr & 0xFF);
   W25Q64_NSS_HIGH();
 
   W25Q64_WaitEnd();
 }
 
-void W25Q64_ReadBuffer(uint8_t *pBuffer, uint32_t ReadAdder, uint32_t ByteNumber)
+void W25Q64_PageWrite(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t ByteNumber)
 {
-  uint32_t i;
+  if (ByteNumber > W25Q64_MAX_PAGESIZE)
+  {
+    ByteNumber = W25Q64_MAX_PAGESIZE;
+    printf("The byte is too much!\r\n");
+  }
+
+  W25Q64_WriteEnable();
+
+  W25Q64_NSS_LOW();
+  W25Q64_SendByte(W25Q64_PAGE_PROGRAM);
+  W25Q64_SendByte((WriteAddr & 0xFF0000) >> 16);
+  W25Q64_SendByte((WriteAddr & 0xFF00) >> 8);
+  W25Q64_SendByte(WriteAddr & 0xFF);
+  while (ByteNumber--)
+  {
+    W25Q64_SendByte(*pBuffer);
+    pBuffer++;
+  }
+
+  W25Q64_NSS_HIGH();
+  W25Q64_WaitEnd();
+}
+
+void W25Q64_BufferRead(uint8_t *pBuffer, uint32_t ReadAdder, uint32_t ByteNumber)
+{
   W25Q64_NSS_LOW();
   W25Q64_SendByte(W25Q64_READ_DATA);
-  W25Q64_SendByte(ReadAdder >> 16);
-  W25Q64_SendByte(ReadAdder >> 8);
-  W25Q64_SendByte(ReadAdder);
-  for (i = 0; i < ByteNumber; i++)
+  W25Q64_SendByte((ReadAdder & 0xFF0000) >> 16);
+  W25Q64_SendByte((ReadAdder & 0xFF00) >> 8);
+  W25Q64_SendByte(ReadAdder & 0xFF);
+  while (ByteNumber--)
   {
-    pBuffer[i] = W25Q64_SendByte(W25Q64_DUMMY_BYTE);
+    *pBuffer = W25Q64_SendByte(W25Q64_DUMMY_BYTE);
+    pBuffer++;
   }
   W25Q64_NSS_HIGH();
+}
+
+
+void W25Q64_Start_Test(void)
+{
+  uint32_t i;
+  printf("Flash_ID = %X, Device_ID = %x\r\n", W25Q64_ReadID(), W25Q64_ReadDeviceID());
+  printf("Conncet W25Q64 success!\r\n");
+  W25Q64_SectorErase(W25Q64_ADRESS);
+  // W25Q64_BufferRead(RD_Buffer, 0, 4096);
+  // for (i = 0; i < 4096; i++)
+  // {
+  //   printf("%x ", RD_Buffer[i]);
+  // }
+  W25Q64_PageWrite(WR_Buffer, 0, 30);
+  W25Q64_BufferRead(RD_Buffer, 0, 30);
+  printf("RD_Buffer: %s", RD_Buffer);
 }
