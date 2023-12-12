@@ -49,6 +49,7 @@ uint32_t W25Q64_ReadDeviceID(void);
 uint32_t W25Q64_ReadID(void);
 void W25Q64_SectorErase(uint32_t SectorAddr);
 void W25Q64_PageWrite(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t ByteNumber);
+void W25Q64_BufferWrite(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t ByteNumber);
 void W25Q64_BufferRead(uint8_t *pBuffer, uint32_t ReadAdder, uint32_t ByteNumber);
 
 void W25Q64_Start_Test(void);

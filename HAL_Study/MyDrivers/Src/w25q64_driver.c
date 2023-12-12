@@ -84,7 +84,7 @@ void W25Q64_PageWrite(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t ByteNumber)
     printf("The byte is too much!\r\n");
   }
 
-  W25Q64_WriteEnable();
+  W25Q64_WriteEnable();   // 写使能
 
   W25Q64_NSS_LOW();
   W25Q64_SendByte(W25Q64_PAGE_PROGRAM);
@@ -99,6 +99,38 @@ void W25Q64_PageWrite(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t ByteNumber)
 
   W25Q64_NSS_HIGH();
   W25Q64_WaitEnd();
+}
+
+void W25Q64_BufferWrite(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t ByteNumber)
+{
+  uint16_t Bytes, Pages, offset, free;
+  
+  offset = WriteAddr % W25Q64_MAX_PAGESIZE;
+  free = W25Q64_MAX_PAGESIZE - offset;
+  if (offset && (ByteNumber > free))
+  {
+    W25Q64_PageWrite(pBuffer, WriteAddr, free);
+    ByteNumber -= free;
+    pBuffer += free;
+    WriteAddr += free;
+  }
+
+  Pages = ByteNumber / W25Q64_MAX_PAGESIZE;   // 判断页数
+  Bytes = ByteNumber % W25Q64_MAX_PAGESIZE;   // 判断剩余页的字节数
+
+  if (Pages)    // 判断是否还需要写入一整页
+  {
+    while (Pages--)
+    {
+      W25Q64_PageWrite(pBuffer, WriteAddr, W25Q64_MAX_PAGESIZE);
+      pBuffer += W25Q64_MAX_PAGESIZE;
+      WriteAddr += W25Q64_MAX_PAGESIZE;
+    }
+  }
+  if (Bytes)    // 写入最后一页所需要的字节数
+  {
+    W25Q64_PageWrite(pBuffer, WriteAddr, Bytes);
+  }
 }
 
 void W25Q64_BufferRead(uint8_t *pBuffer, uint32_t ReadAdder, uint32_t ByteNumber)
@@ -123,12 +155,14 @@ void W25Q64_Start_Test(void)
   printf("Flash_ID = %X, Device_ID = %x\r\n", W25Q64_ReadID(), W25Q64_ReadDeviceID());
   printf("Conncet W25Q64 success!\r\n");
   W25Q64_SectorErase(W25Q64_ADRESS);
-  // W25Q64_BufferRead(RD_Buffer, 0, 4096);
-  // for (i = 0; i < 4096; i++)
-  // {
-  //   printf("%x ", RD_Buffer[i]);
-  // }
-  W25Q64_PageWrite(WR_Buffer, 0, 30);
-  W25Q64_BufferRead(RD_Buffer, 0, 30);
-  printf("RD_Buffer: %s", RD_Buffer);
+  for (i = 0; i < 4096; i++)
+  {
+    WR_Buffer[i] = 0x55;
+  }
+  W25Q64_BufferWrite(WR_Buffer, 50, 1000);
+  W25Q64_BufferRead(RD_Buffer, 50, 1000);
+  for (i = 0; i < 1000; i++)
+  {
+    printf("%x ", RD_Buffer[i]);
+  }
 }
